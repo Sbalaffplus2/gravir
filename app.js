@@ -241,7 +241,7 @@ function selectProduct(type) {
   document.getElementById('choice-keychain').classList.toggle('selected', type === 'keychain');
   // Update photo preview
   const photoImg = document.getElementById('productPhotoImg');
-  if (photoImg) { photoImg.src = type + '.jpg'; }
+  if (photoImg) { photoImg.src = type + '.png'; }
   // Update overlay positioning class (pen=diagonal, keychain=upright)
   const overlay = document.getElementById('photoEngraveOverlay');
   if (overlay) { overlay.className = 'photo-engrave-overlay ' + type; }
