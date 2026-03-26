@@ -281,7 +281,7 @@ a:hover { text-decoration: underline; }
 /* Pen: diagonal, centered on barrel */
 .photo-engrave-overlay.pen {
   top: 42%; left: 18%; width: 64%;
-  transform: rotate(-43deg);
+  transform: rotate(43deg);
   transform-origin: center;
 }
 
