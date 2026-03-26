@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title data-i18n="site_title">GravírAjándék – Egyedi gravírozott termékek</title>
-  <meta name="description" content="Egyedi gravírozott toll és kulcstartó ajándékok. Saját kép vagy szöveg alapján." />
+  <meta name="description" content="Egyedi gravírozott bambusz toll és fa kulcstartó ajándékok." />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -39,31 +39,15 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-content">
-    <p class="hero-tag" data-i18n="hero_tag">Kézzel gravírozott, örök emlék</p>
+    <p class="hero-tag" data-i18n="hero_tag">Valódi lézer gravírozás</p>
     <h1 data-i18n="hero_title">Egyedi ajándék,<br/>ami maradandó</h1>
-    <p class="hero-sub" data-i18n="hero_sub">Töltsd fel a képedet vagy add meg a szövegedet – mi kigravírozzuk tollra vagy kulcstartóra, és házhoz küldjük.</p>
+    <p class="hero-sub" data-i18n="hero_sub">Töltsd fel a képedet vagy add meg a szövegedet – mi kigravírozzuk bambusz tollra vagy fa kulcstartóra, és házhoz küldjük.</p>
     <a href="#configurator" class="btn-primary" data-i18n="hero_cta">Tervezés most</a>
   </div>
   <div class="hero-visual">
-    <div class="hero-mockup">
-      <svg viewBox="0 0 320 220" class="hero-svg">
-        <!-- Pen mockup -->
-        <rect x="40" y="90" width="160" height="28" rx="14" fill="#c9a96e" opacity="0.9"/>
-        <rect x="195" y="96" width="30" height="16" rx="4" fill="#b8860b"/>
-        <circle cx="228" cy="104" r="7" fill="#d4af37"/>
-        <rect x="40" y="94" width="155" height="6" rx="3" fill="#e8c97e" opacity="0.5"/>
-        <text x="85" y="109" font-size="10" fill="#5a3e1b" font-family="serif" font-style="italic">Forever yours ♥</text>
-        <!-- Keychain mockup -->
-        <rect x="200" y="130" width="70" height="50" rx="10" fill="#d4af37" opacity="0.85"/>
-        <circle cx="235" cy="123" r="6" fill="none" stroke="#d4af37" stroke-width="3"/>
-        <circle cx="235" cy="117" r="3" fill="none" stroke="#c9a96e" stroke-width="2"/>
-        <text x="215" y="152" font-size="8" fill="#5a3e1b" font-family="serif" font-style="italic">Anna</text>
-        <text x="210" y="165" font-size="6.5" fill="#7a5c2b" font-family="serif">2024. ♥</text>
-        <!-- Sparkles -->
-        <text x="20" y="60" font-size="18" opacity="0.6">✦</text>
-        <text x="280" y="80" font-size="12" opacity="0.4">✦</text>
-        <text x="60" y="170" font-size="10" opacity="0.3">✦</text>
-      </svg>
+    <div class="hero-products">
+      <div class="hero-product-img"><img src="pen.jpg" alt="Bambusz toll" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="hero-product-img"><img src="keychain.jpg" alt="Fa kulcstartó" onerror="this.parentElement.style.display='none'" /></div>
     </div>
   </div>
 </section>
@@ -72,18 +56,15 @@
 <section id="products" class="products-section">
   <div class="container">
     <h2 data-i18n="products_title">Termékeink</h2>
-    <p class="section-sub" data-i18n="products_sub">Prémium minőség, személyre szabva</p>
+    <p class="section-sub" data-i18n="products_sub">Prémium bambusz és bükkfa, lézer gravírozással</p>
     <div class="products-grid">
       <div class="product-card" onclick="selectProduct('pen'); scrollToConfig()">
-        <div class="product-icon">
-          <svg viewBox="0 0 80 80" width="80" height="80">
-            <rect x="10" y="32" width="52" height="16" rx="8" fill="#c9a96e"/>
-            <rect x="58" y="36" width="12" height="8" rx="2" fill="#b8860b"/>
-            <rect x="10" y="34" width="50" height="4" rx="2" fill="#e8c97e" opacity="0.6"/>
-          </svg>
+        <div class="product-card-photo">
+          <img src="pen.jpg" alt="Bambusz toll" onerror="this.closest('.product-card-photo').style.display='none'" />
         </div>
-        <h3 data-i18n="pen_name">Gravírozott Toll</h3>
-        <p data-i18n="pen_desc">Elegáns fém toll egyedi gravírozással. Tökéletes ajándék bármilyen alkalomra.</p>
+        <h3 data-i18n="pen_name">Bambusz Toll</h3>
+        <p class="product-size" data-i18n="pen_size">14,5 × 1,1 cm &nbsp;·&nbsp; max. 22 karakter/sor</p>
+        <p data-i18n="pen_desc">Elegáns bambusz toll egyedi gravírozással. Környezetbarát, tartós anyag.</p>
         <div class="price-row">
           <span class="price">3 990 Ft</span>
           <span class="price-note" data-i18n="price_img">+500 Ft kép esetén</span>
@@ -91,16 +72,12 @@
         <button class="btn-secondary" data-i18n="btn_customize">Testreszabás</button>
       </div>
       <div class="product-card" onclick="selectProduct('keychain'); scrollToConfig()">
-        <div class="product-icon">
-          <svg viewBox="0 0 80 80" width="80" height="80">
-            <rect x="22" y="28" width="36" height="32" rx="6" fill="#d4af37"/>
-            <circle cx="40" cy="20" r="6" fill="none" stroke="#d4af37" stroke-width="3"/>
-            <circle cx="40" cy="14" r="3" fill="none" stroke="#c9a96e" stroke-width="2"/>
-            <rect x="22" y="30" width="36" height="5" rx="2" fill="#e8c97e" opacity="0.5"/>
-          </svg>
+        <div class="product-card-photo">
+          <img src="keychain.jpg" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
         </div>
-        <h3 data-i18n="keychain_name">Gravírozott Kulcstartó</h3>
-        <p data-i18n="keychain_desc">Arany- vagy ezüstszínű fém kulcstartó, személyes üzenettel vagy képpel.</p>
+        <h3 data-i18n="keychain_name">Fa Kulcstartó</h3>
+        <p class="product-size" data-i18n="keychain_size">5 × 3 cm &nbsp;·&nbsp; max. 14 karakter/sor</p>
+        <p data-i18n="keychain_desc">Bükkfa kulcstartó személyes üzenettel vagy képpel.</p>
         <div class="price-row">
           <span class="price">2 490 Ft</span>
           <span class="price-note" data-i18n="price_img">+500 Ft kép esetén</span>
@@ -116,26 +93,10 @@
   <div class="container">
     <h2 data-i18n="how_title">Hogyan működik?</h2>
     <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h4 data-i18n="step1_title">Válassz terméket</h4>
-        <p data-i18n="step1_desc">Toll vagy kulcstartó – mindkettő prémium fém alapanyagból.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h4 data-i18n="step2_title">Add meg a tartalmat</h4>
-        <p data-i18n="step2_desc">Írj szöveget, vagy tölts fel képet/logót. Akár sablont is választhatsz.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h4 data-i18n="step3_title">Előnézet & megrendelés</h4>
-        <p data-i18n="step3_desc">Valós idejű előnézeten ellenőrizd az eredményt, majd fizess biztonságosan.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h4 data-i18n="step4_title">Kézbesítés</h4>
-        <p data-i18n="step4_desc">3–5 munkanapon belül elkészítjük és postázzuk a gravírozott ajándékot.</p>
-      </div>
+      <div class="step"><div class="step-num">1</div><h4 data-i18n="step1_title">Válassz terméket</h4><p data-i18n="step1_desc">Bambusz toll vagy bükkfa kulcstartó.</p></div>
+      <div class="step"><div class="step-num">2</div><h4 data-i18n="step2_title">Add meg a tartalmat</h4><p data-i18n="step2_desc">Szöveg, kép vagy sablon alapján.</p></div>
+      <div class="step"><div class="step-num">3</div><h4 data-i18n="step3_title">Előnézet & megrendelés</h4><p data-i18n="step3_desc">Valós idejű előnézet, majd biztonságos fizetés.</p></div>
+      <div class="step"><div class="step-num">4</div><h4 data-i18n="step4_title">Kézbesítés</h4><p data-i18n="step4_desc">3–5 munkanapon belül postázzuk.</p></div>
     </div>
   </div>
 </section>
@@ -145,9 +106,7 @@
   <div class="container">
     <h2 data-i18n="templates_title">Sablonok</h2>
     <p class="section-sub" data-i18n="templates_sub">Válassz egyet, vagy tervezd meg a sajátodat</p>
-    <div class="templates-grid" id="templatesGrid">
-      <!-- dynamically injected by JS -->
-    </div>
+    <div class="templates-grid" id="templatesGrid"></div>
   </div>
 </section>
 
@@ -155,8 +114,6 @@
 <section id="configurator" class="configurator-section">
   <div class="container">
     <h2 data-i18n="config_title">Tervezd meg az ajándékod</h2>
-
-    <!-- Step indicator -->
     <div class="steps-indicator">
       <div class="step-ind active" id="step-ind-1"><span>1</span> <span data-i18n="step_ind_product">Termék</span></div>
       <div class="step-sep">→</div>
@@ -165,54 +122,53 @@
       <div class="step-ind" id="step-ind-3"><span>3</span> <span data-i18n="step_ind_order">Megrendelés</span></div>
     </div>
 
-    <!-- STEP 1: Product selection -->
+    <!-- STEP 1 -->
     <div class="config-step" id="config-step-1">
       <h3 data-i18n="config_step1_h">Melyik terméket szeretnéd?</h3>
       <div class="product-choice-grid">
         <div class="choice-card" id="choice-pen" onclick="selectProduct('pen')">
-          <svg viewBox="0 0 100 50" width="100" height="50">
-            <rect x="5" y="15" width="75" height="20" rx="10" fill="#c9a96e"/>
-            <rect x="76" y="19" width="16" height="12" rx="3" fill="#b8860b"/>
-            <rect x="5" y="17" width="72" height="5" rx="2" fill="#e8c97e" opacity="0.5"/>
-          </svg>
-          <span data-i18n="pen_name">Gravírozott Toll</span>
+          <div class="choice-photo"><img src="pen.jpg" alt="toll" onerror="this.style.display='none'" /></div>
+          <span data-i18n="pen_name">Bambusz Toll</span>
+          <span class="choice-size" data-i18n="pen_size_short">14,5 × 1,1 cm · max. 22 kar./sor</span>
           <span class="choice-price">3 990 Ft</span>
         </div>
         <div class="choice-card" id="choice-keychain" onclick="selectProduct('keychain')">
-          <svg viewBox="0 0 80 80" width="60" height="60">
-            <rect x="20" y="28" width="40" height="36" rx="8" fill="#d4af37"/>
-            <circle cx="40" cy="20" r="7" fill="none" stroke="#d4af37" stroke-width="3"/>
-            <circle cx="40" cy="13" r="3" fill="none" stroke="#c9a96e" stroke-width="2"/>
-          </svg>
-          <span data-i18n="keychain_name">Gravírozott Kulcstartó</span>
+          <div class="choice-photo"><img src="keychain.jpg" alt="kulcstartó" onerror="this.style.display='none'" /></div>
+          <span data-i18n="keychain_name">Fa Kulcstartó</span>
+          <span class="choice-size" data-i18n="keychain_size_short">5 × 3 cm · max. 14 kar./sor</span>
           <span class="choice-price">2 490 Ft</span>
         </div>
       </div>
       <button class="btn-primary" onclick="goToStep(2)" data-i18n="btn_next">Tovább →</button>
     </div>
 
-    <!-- STEP 2: Design -->
+    <!-- STEP 2 -->
     <div class="config-step hidden" id="config-step-2">
       <h3 data-i18n="config_step2_h">Mit gravírozzunk rá?</h3>
-
       <div class="tab-switch">
         <button class="tab-btn active" onclick="switchTab('text')" id="tab-text" data-i18n="tab_text">Szöveg</button>
-        <button class="tab-btn" onclick="switchTab('image')" id="tab-image" data-i18n="tab_image">Kép feltöltése (+500 Ft)</button>
+        <button class="tab-btn" onclick="switchTab('image')" id="tab-image" data-i18n="tab_image">Kép (+500 Ft)</button>
         <button class="tab-btn" onclick="switchTab('template')" id="tab-template" data-i18n="tab_tpl">Sablon</button>
       </div>
 
       <!-- Text tab -->
       <div class="tab-content" id="tab-text-content">
         <div class="form-group">
-          <label data-i18n="label_line1">1. sor (pl. név):</label>
-          <input type="text" id="text-line1" maxlength="25" placeholder="pl. Anna" oninput="updatePreview()" />
+          <div class="label-row">
+            <label data-i18n="label_line1">1. sor:</label>
+            <span class="char-counter" id="counter-line1">0 / 22</span>
+          </div>
+          <input type="text" id="text-line1" maxlength="22" placeholder="pl. Anna" oninput="updatePreview(); updateCharCounters()" />
         </div>
         <div class="form-group">
-          <label data-i18n="label_line2">2. sor (pl. dátum, üzenet):</label>
-          <input type="text" id="text-line2" maxlength="30" placeholder="pl. 2024. december 24. ♥" oninput="updatePreview()" />
+          <div class="label-row">
+            <label data-i18n="label_line2">2. sor:</label>
+            <span class="char-counter" id="counter-line2">0 / 22</span>
+          </div>
+          <input type="text" id="text-line2" maxlength="22" placeholder="pl. 2024. dec. 24. ♥" oninput="updatePreview(); updateCharCounters()" />
         </div>
         <div class="form-group">
-          <label data-i18n="label_font">Betűtípus:</label>
+          <label data-i18n="label_font">Betűstílus:</label>
           <select id="font-select" onchange="updatePreview()">
             <option value="serif" data-i18n="font_serif">Klasszikus (talpas)</option>
             <option value="script" data-i18n="font_script">Kézírásos</option>
@@ -226,27 +182,37 @@
         <div class="upload-area" id="uploadArea" onclick="document.getElementById('imageUpload').click()">
           <div class="upload-icon">📁</div>
           <p data-i18n="upload_hint">Kattints vagy húzd ide a képet</p>
-          <p class="upload-note" data-i18n="upload_note">JPG, PNG, SVG – max. 5 MB</p>
+          <p class="upload-note" data-i18n="upload_note">JPG, PNG – max. 5 MB</p>
           <input type="file" id="imageUpload" accept="image/*" onchange="handleImageUpload(event)" style="display:none" />
         </div>
         <div id="uploadedPreviewWrap" class="hidden">
-          <img id="uploadedPreviewImg" src="" alt="feltöltött kép" style="max-height:120px;border-radius:8px;margin-top:12px;" />
+          <img id="uploadedPreviewImg" src="" alt="feltöltött kép" style="max-height:100px;border-radius:8px;margin-top:10px;" />
           <button class="btn-ghost" onclick="clearImage()" data-i18n="btn_clear_img">✕ Kép törlése</button>
         </div>
       </div>
 
       <!-- Template tab -->
       <div class="tab-content hidden" id="tab-template-content">
-        <div class="templates-mini-grid" id="templatesMiniGrid">
-          <!-- populated by JS -->
-        </div>
+        <div class="templates-mini-grid" id="templatesMiniGrid"></div>
       </div>
 
       <!-- PREVIEW -->
       <div class="preview-box">
         <h4 data-i18n="preview_title">Előnézet</h4>
-        <div class="preview-canvas" id="previewCanvas">
-          <canvas id="previewCnv" width="500" height="200"></canvas>
+        <div class="preview-split">
+          <!-- Product photo with engraving overlay -->
+          <div class="preview-photo-wrap" id="previewPhotoWrap">
+            <img id="productPhotoImg" src="pen.jpg" alt="termék" onerror="this.style.opacity='0'" />
+            <div class="photo-engrave-overlay pen" id="photoEngraveOverlay">
+              <div class="photo-engrave-text" id="photoEngraveLine1"></div>
+              <div class="photo-engrave-text" id="photoEngraveLine2"></div>
+            </div>
+          </div>
+          <!-- Flat detailed canvas -->
+          <div class="preview-canvas-wrap">
+            <p class="preview-sublabel" data-i18n="preview_flat_label">Gravírozás részlete (valós arányok)</p>
+            <canvas id="previewCnv"></canvas>
+          </div>
         </div>
         <p class="preview-note" data-i18n="preview_note">* Az előnézet tájékoztató jellegű. A valódi gravírozás eltérhet.</p>
       </div>
@@ -257,89 +223,67 @@
       </div>
     </div>
 
-    <!-- STEP 3: Order form -->
+    <!-- STEP 3 -->
     <div class="config-step hidden" id="config-step-3">
       <h3 data-i18n="config_step3_h">Megrendelés adatai</h3>
-
-      <div class="order-summary" id="orderSummary">
-        <!-- filled by JS -->
-      </div>
-
+      <div class="order-summary" id="orderSummary"></div>
       <form id="orderForm" onsubmit="submitOrder(event)" novalidate>
         <div class="form-row">
           <div class="form-group">
-            <label data-i18n="label_name">Teljes név: <span class="req">*</span></label>
+            <label data-i18n="label_name">Teljes név <span class="req">*</span></label>
             <input type="text" id="customerName" required />
           </div>
           <div class="form-group">
-            <label data-i18n="label_email">E-mail cím: <span class="req">*</span></label>
+            <label data-i18n="label_email">E-mail <span class="req">*</span></label>
             <input type="email" id="customerEmail" required />
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label data-i18n="label_phone">Telefonszám:</label>
+            <label data-i18n="label_phone">Telefonszám</label>
             <input type="tel" id="customerPhone" placeholder="+36 ..." />
           </div>
           <div class="form-group">
-            <label data-i18n="label_address">Szállítási cím: <span class="req">*</span></label>
+            <label data-i18n="label_address">Szállítási cím <span class="req">*</span></label>
             <input type="text" id="customerAddress" required />
           </div>
         </div>
         <div class="form-group">
-          <label data-i18n="label_note">Megjegyzés a megrendeléshez:</label>
-          <textarea id="orderNote" rows="3" placeholder="Egyéb kérések, különleges csomagolás, stb."></textarea>
+          <label data-i18n="label_note">Megjegyzés</label>
+          <textarea id="orderNote" rows="3"></textarea>
         </div>
-
-        <!-- Payment method -->
         <h4 data-i18n="payment_title">Fizetési mód</h4>
         <div class="payment-methods">
-          <label class="pay-option" id="pay-transfer">
+          <label class="pay-option">
             <input type="radio" name="payment" value="transfer" checked onchange="showPaymentInfo()" />
             <div class="pay-icon">🏦</div>
-            <div>
-              <strong data-i18n="pay_transfer">Banki átutalás</strong>
-              <small data-i18n="pay_transfer_note">Megrendelés után e-mailben küldöm a bankszámlaszámot</small>
-            </div>
+            <div><strong data-i18n="pay_transfer">Banki átutalás</strong><small data-i18n="pay_transfer_note">Megrendelés után e-mailben küldöm a bankszámlaszámot</small></div>
           </label>
-          <label class="pay-option" id="pay-simplepay">
+          <label class="pay-option">
             <input type="radio" name="payment" value="simplepay" onchange="showPaymentInfo()" />
             <div class="pay-icon">💳</div>
-            <div>
-              <strong>SimplePay</strong>
-              <small data-i18n="pay_simplepay_note">Bankkártyás fizetés (OTP SimplePay)</small>
-            </div>
+            <div><strong>SimplePay</strong><small data-i18n="pay_simplepay_note">Bankkártyás fizetés</small></div>
           </label>
-          <label class="pay-option" id="pay-barion">
+          <label class="pay-option">
             <input type="radio" name="payment" value="barion" onchange="showPaymentInfo()" />
             <div class="pay-icon">📱</div>
-            <div>
-              <strong>Barion</strong>
-              <small data-i18n="pay_barion_note">Bankkártya / Apple Pay / Google Pay</small>
-            </div>
+            <div><strong>Barion</strong><small data-i18n="pay_barion_note">Bankkártya / Apple Pay / Google Pay</small></div>
           </label>
         </div>
-
-        <!-- Payment info box -->
-        <div id="paymentInfoBox" class="payment-info-box">
-          <!-- filled by JS -->
-        </div>
-
+        <div id="paymentInfoBox" class="payment-info-box"></div>
         <div class="form-group checkbox-row">
           <input type="checkbox" id="acceptTerms" required />
           <label for="acceptTerms">
             <span data-i18n="accept_terms">Elfogadom az</span>
-            <a href="#" onclick="showTerms()" data-i18n="terms_link">általános szerződési feltételeket</a>
+            <a href="#" onclick="showTerms(); return false;" data-i18n="terms_link">általános szerződési feltételeket</a>
           </label>
         </div>
-
         <div class="step-nav">
           <button type="button" class="btn-ghost" onclick="goToStep(2)" data-i18n="btn_back">← Vissza</button>
           <button type="submit" class="btn-primary btn-order" data-i18n="btn_order">Megrendelés leadása</button>
         </div>
       </form>
     </div>
-
   </div>
 </section>
 
@@ -348,7 +292,7 @@
   <div class="modal">
     <div class="modal-icon">✅</div>
     <h3 data-i18n="success_title">Megrendelés elküldve!</h3>
-    <p data-i18n="success_msg">Köszönjük! Visszaigazolást kapsz e-mailben. Hamarosan felvesszük veled a kapcsolatot.</p>
+    <p data-i18n="success_msg">Köszönjük! Visszaigazolást kapsz e-mailben hamarosan.</p>
     <button class="btn-primary" onclick="closeModal()" data-i18n="btn_close">Bezárás</button>
   </div>
 </div>
@@ -357,12 +301,12 @@
 <div class="modal-overlay hidden" id="termsModal">
   <div class="modal modal-wide">
     <h3 data-i18n="terms_title">Általános Szerződési Feltételek</h3>
-    <div class="terms-content" data-i18n="terms_body">
-      <p><strong>1. Az ajándéktárgyak egyedi gyártású termékek</strong>, ezért a megrendelés leadása után visszamondási lehetőség korlátozott (48 óra, ha a gyártás még nem kezdődött el).</p>
-      <p><strong>2. Szállítás:</strong> 3–5 munkanap. Futárszolgálattal, követhető csomagként.</p>
-      <p><strong>3. Fizetés:</strong> Átutalás esetén a megrendelés megerősítése után 3 munkanapon belül szükséges. SimplePay/Barion esetén az összeg azonnal levonódik.</p>
-      <p><strong>4. Adatkezelés:</strong> A megadott adatokat kizárólag a megrendelés teljesítéséhez és kapcsolattartáshoz használjuk. Harmadik félnek nem adjuk át.</p>
-      <p><strong>5. Minőség:</strong> Ha a termék hibás, csere vagy visszatérítés jár.</p>
+    <div class="terms-content">
+      <p><strong>1. Egyedi termék</strong> – Gravírozott ajándékok egyedi gyártásúak, 48 óráig visszamondható.</p>
+      <p><strong>2. Szállítás</strong> – 3–5 munkanap, futárszolgálattal.</p>
+      <p><strong>3. Fizetés</strong> – Átutalásnál 3 munkanapon belül esedékes.</p>
+      <p><strong>4. Adatkezelés</strong> – Adatait kizárólag a rendelés teljesítéséhez használjuk.</p>
+      <p><strong>5. Minőség</strong> – Hibás termék esetén csere vagy visszatérítés.</p>
     </div>
     <button class="btn-primary" onclick="closeTermsModal()" data-i18n="btn_close">Bezárás</button>
   </div>
@@ -373,36 +317,17 @@
   <div class="container">
     <h2 data-i18n="contact_title">Kapcsolat</h2>
     <div class="contact-grid">
-      <div class="contact-item">
-        <span class="contact-icon">✉️</span>
-        <div>
-          <strong data-i18n="contact_email_label">E-mail</strong>
-          <a href="mailto:sbalaffplus2@gmail.com">sbalaffplus2@gmail.com</a>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="contact-icon">⏱️</span>
-        <div>
-          <strong data-i18n="contact_response">Válaszidő</strong>
-          <span data-i18n="contact_response_val">1 munkanapon belül</span>
-        </div>
-      </div>
-      <div class="contact-item">
-        <span class="contact-icon">🚚</span>
-        <div>
-          <strong data-i18n="contact_delivery">Szállítás</strong>
-          <span data-i18n="contact_delivery_val">3–5 munkanap (Magyarország)</span>
-        </div>
-      </div>
+      <div class="contact-item"><span class="contact-icon">✉️</span><div><strong data-i18n="contact_email_label">E-mail</strong><a href="mailto:sbalaffplus2@gmail.com">sbalaffplus2@gmail.com</a></div></div>
+      <div class="contact-item"><span class="contact-icon">⏱️</span><div><strong data-i18n="contact_response">Válaszidő</strong><span data-i18n="contact_response_val">1 munkanapon belül</span></div></div>
+      <div class="contact-item"><span class="contact-icon">🚚</span><div><strong data-i18n="contact_delivery">Szállítás</strong><span data-i18n="contact_delivery_val">3–5 munkanap</span></div></div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer class="footer">
   <div class="container">
     <p>© 2026 GravírAjándék. <span data-i18n="footer_rights">Minden jog fenntartva.</span></p>
-    <p><a href="#" onclick="showTerms()" data-i18n="terms_link">ÁSZF</a> · <a href="mailto:sbalaffplus2@gmail.com" data-i18n="footer_contact">Kapcsolat</a></p>
+    <p><a href="#" onclick="showTerms(); return false;" data-i18n="terms_link">ÁSZF</a> · <a href="mailto:sbalaffplus2@gmail.com" data-i18n="footer_contact">Kapcsolat</a></p>
   </div>
 </footer>
 
