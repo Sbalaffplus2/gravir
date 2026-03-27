@@ -1,28 +1,17 @@
 const nodemailer = require('nodemailer');
-const https = require('https');
 
-// Airtable helper – saves order record, fails silently if not configured
-async function saveToAirtable(fields) {
-  if (!process.env.AIRTABLE_API_KEY || !process.env.AIRTABLE_BASE_ID) return;
-  const data = JSON.stringify({ records: [{ fields }] });
-  return new Promise((resolve) => {
-    const req = https.request({
-      hostname: 'api.airtable.com',
-      path: `/v0/${process.env.AIRTABLE_BASE_ID}/Orders`,
+// Google Sheets helper via Apps Script Web App – fails silently if not configured
+async function saveToGoogleSheets(row) {
+  if (!process.env.GOOGLE_SHEETS_WEBHOOK_URL) return;
+  try {
+    await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
       method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`,
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(data),
-      },
-    }, (res) => {
-      res.resume();
-      resolve();
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(row),
     });
-    req.on('error', (e) => { console.error('Airtable error:', e.message); resolve(); });
-    req.write(data);
-    req.end();
-  });
+  } catch (e) {
+    console.error('Google Sheets error:', e.message);
+  }
 }
 
 exports.handler = async function(event, context) {
@@ -143,20 +132,20 @@ exports.handler = async function(event, context) {
   };
 
   try {
-    // Save to Airtable (non-blocking, optional)
-    await saveToAirtable({
-      'OrderNumber': orderNumber,
-      'Status': paymentMethod === 'Banki átutalás' ? 'Fizetésre vár' : 'Feldolgozás alatt',
-      'CustomerName': customerName,
-      'CustomerEmail': customerEmail,
-      'CustomerPhone': customerPhone || '',
-      'CustomerAddress': customerAddress,
-      'Product': product,
-      'Content': content,
-      'Total': total,
-      'PaymentMethod': paymentMethod,
-      'Note': orderNote || '',
-      'CreatedAt': new Date().toISOString(),
+    // Save to Google Sheets (non-blocking, optional)
+    await saveToGoogleSheets({
+      orderNumber,
+      status: paymentMethod === 'Banki átutalás' ? 'Fizetésre vár' : 'Feldolgozás alatt',
+      customerName,
+      customerEmail,
+      customerPhone: customerPhone || '',
+      customerAddress,
+      product,
+      content,
+      total,
+      paymentMethod,
+      note: orderNote || '',
+      createdAt: new Date().toISOString(),
     });
 
     await transporter.sendMail(mailOptions);
