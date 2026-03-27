@@ -6,11 +6,8 @@ async function saveToGoogleSheets(row) {
   try {
     await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Webhook-Secret': process.env.GOOGLE_SHEETS_SECRET,
-      },
-      body: JSON.stringify(row),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...row, secret: process.env.GOOGLE_SHEETS_SECRET }),
     });
   } catch (e) {
     console.error('Google Sheets error:', e.message);
