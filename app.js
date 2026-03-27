@@ -2,11 +2,8 @@
    APP.JS – GravírAjándék v2
    =========================================== */
 
-// ── EmailJS ──────────────────────────────────
-// DEPRECATED in favor of server.js backend
-// const EMAILJS_SERVICE_ID  = 'service_k6jumcf';
-// const EMAILJS_TEMPLATE_ID = 'template_n1viil8';
-// const EMAILJS_PUBLIC_KEY  = '8XTzOjDofiyONfv2X';
+// ── Rendelés küldés ─────────────────────────────
+// Netlify Function: /.netlify/functions/send-order
 
 // ── Character limits based on real dimensions ─
 // Pen: 14.5cm × 1.1cm → engravable ~8.5cm × 0.8cm → max 22 chars/line (at ~3.8mm/char)
@@ -767,7 +764,7 @@ function showPaymentInfo() {
   if (ta) ta.textContent = getTotal().toLocaleString('hu-HU') + ' Ft';
 }
 
-// ── EmailJS submit ────────────────────────────
+// ── Rendelés leadása → Netlify Function ─────
 async function submitOrder(event) {
   event.preventDefault();
   const name    = document.getElementById('customerName').value.trim();
@@ -796,32 +793,31 @@ async function submitOrder(event) {
   const paymentLabel = { transfer: 'Banki átutalás', simplepay: 'SimplePay', barion: 'Barion' }[payment] || payment;
   const orderNum = 'GR-' + Date.now().toString().slice(-6);
 
-  const adminParams = {
-    to_email: 'sbalaffplus2@gmail.com',
-    order_number: orderNum, customer_name: name, customer_email: email,
-    customer_phone: phone || '–', delivery_address: address,
-    product: prodName, content: contentDesc,
-    total: total.toLocaleString('hu-HU') + ' Ft',
-    payment: paymentLabel, note: note || '–',
-    image_data: STATE.uploadedImage || '(nincs kép)',
-  };
-
-  const customerParams = {
-    to_email: email,
-    order_number: orderNum, customer_name: name,
-    product: prodName, content: contentDesc,
-    total: total.toLocaleString('hu-HU') + ' Ft',
-    payment: paymentLabel,
-  };
-
   const btn = document.querySelector('.btn-order');
   btn.disabled = true;
   btn.textContent = '⏳ Küldés...';
 
   try {
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, adminParams);
-    await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, customerParams);
+    const response = await fetch('/.netlify/functions/send-order', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customerName: name,
+        customerEmail: email,
+        customerPhone: phone || '–',
+        customerAddress: address,
+        orderNote: note || '–',
+        paymentMethod: paymentLabel,
+        orderNumber: orderNum,
+        product: prodName,
+        content: contentDesc,
+        total: total.toLocaleString('hu-HU') + ' Ft',
+        uploadedImage: STATE.activeTab === 'image' ? STATE.uploadedImage : null,
+      }),
+    });
+
+    if (!response.ok) throw new Error('Server error: ' + response.status);
+
     document.getElementById('successModal').classList.remove('hidden');
     document.getElementById('orderForm').reset();
     STATE.product = null; STATE.uploadedImage = null;
@@ -829,7 +825,7 @@ async function submitOrder(event) {
     STATE.line1 = ''; STATE.line2 = '';
     goToStep(1);
   } catch (err) {
-    console.error('EmailJS error:', err);
+    console.error('Order submit error:', err);
     alert(t('err_sending'));
   } finally {
     btn.disabled = false;

@@ -13,7 +13,10 @@ exports.handler = async function(event, context) {
     customerPhone,
     orderNote,
     paymentMethod,
-    summaryHTML,
+    orderNumber,
+    product,
+    content,
+    total,
     uploadedImage,
   } = JSON.parse(event.body);
 
@@ -33,47 +36,57 @@ exports.handler = async function(event, context) {
     },
   });
 
+  const orderDetailsHtml = `
+    <table style="border-collapse:collapse;width:100%;font-family:sans-serif;">
+      <tr><td style="padding:6px 12px;background:#f5f3ef;font-weight:bold;">Rendelés szám</td><td style="padding:6px 12px;">${orderNumber}</td></tr>
+      <tr><td style="padding:6px 12px;background:#f5f3ef;font-weight:bold;">Termék</td><td style="padding:6px 12px;">${product}</td></tr>
+      <tr><td style="padding:6px 12px;background:#f5f3ef;font-weight:bold;">Tartalom</td><td style="padding:6px 12px;">${content}</td></tr>
+      <tr><td style="padding:6px 12px;background:#f5f3ef;font-weight:bold;">Összeg</td><td style="padding:6px 12px;font-weight:bold;">${total}</td></tr>
+      <tr><td style="padding:6px 12px;background:#f5f3ef;font-weight:bold;">Fizetési mód</td><td style="padding:6px 12px;">${paymentMethod}</td></tr>
+    </table>
+  `;
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: process.env.EMAIL_USER, // Send to yourself
+    to: process.env.EMAIL_USER,
     replyTo: customerEmail,
-    subject: `Új megrendelés: ${customerName}`,
+    subject: `Új megrendelés [${orderNumber}]: ${customerName}`,
     html: `
-      <h2>Új megrendelés érkezett</h2>
+      <h2 style="color:#c4820e;">Új megrendelés érkezett</h2>
       <p><strong>Név:</strong> ${customerName}</p>
       <p><strong>Email:</strong> ${customerEmail}</p>
       <p><strong>Cím:</strong> ${customerAddress}</p>
       <p><strong>Telefon:</strong> ${customerPhone || 'Nincs megadva'}</p>
       <p><strong>Megjegyzés:</strong> ${orderNote || 'Nincs megadva'}</p>
-      <p><strong>Fizetési mód:</strong> ${paymentMethod}</p>
       <hr>
       <h3>Rendelés részletei:</h3>
-      ${summaryHTML}
+      ${orderDetailsHtml}
     `,
     attachments: [],
   };
 
   if (uploadedImage) {
     mailOptions.attachments.push({
-      filename: 'feltoltott-kep.png',
+      filename: 'gravir-kep.png',
       content: uploadedImage.split('base64,')[1],
       encoding: 'base64',
     });
   }
-  
-  // Also send a confirmation to the customer
+
   const customerMailOptions = {
-      from: process.env.EMAIL_USER,
-      to: customerEmail,
-      subject: 'GravírAjándék - Megrendelés visszaigazolás',
-      html: `
-        <h2>Kedves ${customerName}!</h2>
-        <p>Köszönjük a megrendelésed! Hamarosan feldolgozzuk és felvesszük veled a kapcsolatot.</p>
-        <p>A megrendelésed részletei:</p>
-        ${summaryHTML}
-        <hr>
-        <p>Üdvözlettel,<br>A GravírAjándék csapata</p>
-      `
+    from: process.env.EMAIL_USER,
+    to: customerEmail,
+    subject: `GravírAjándék – Megrendelés visszaigazolás [${orderNumber}]`,
+    html: `
+      <h2 style="color:#c4820e;">Köszönjük a megrendelést!</h2>
+      <p>Kedves ${customerName}!</p>
+      <p>Megkaptuk a rendelését. Hamarosan felvesszük Önnel a kapcsolatot.</p>
+      <hr>
+      <h3>Rendelés részletei:</h3>
+      ${orderDetailsHtml}
+      <hr>
+      <p style="color:#8a8075;font-size:0.9em;">Üdvözlettel,<br><strong>A GravírAjándék csapata</strong></p>
+    `,
   };
 
   try {
