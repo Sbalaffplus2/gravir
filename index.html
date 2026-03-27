@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 
@@ -78,32 +77,32 @@
           </picture>
         </div>
         <div class="product-card-body">
-        <h3 data-i18n="pen_name">Bambusz Toll</h3>
-        <span class="product-size" data-i18n="pen_size">14,5 × 1,1 cm &nbsp;·&nbsp; max. 22 karakter/sor</span>
-        <p data-i18n="pen_desc">Elegáns bambusz toll egyedi gravírozással. Környezetbarát, tartós anyag.</p>
-        <div class="price-row">
-          <span class="price">3 990 Ft</span>
-          <span class="price-note" data-i18n="price_img">+500 Ft kép esetén</span>
+          <h3 data-i18n="pen_name">Bambusz Toll</h3>
+          <span class="product-size" data-i18n="pen_size">14,5 × 1,1 cm &nbsp;·&nbsp; max. 22 karakter/sor</span>
+          <p data-i18n="pen_desc">Elegáns bambusz toll egyedi gravírozással. Környezetbarát, tartós anyag.</p>
+          <div class="price-row">
+            <span class="price">3 990 Ft</span>
+            <span class="price-note" data-i18n="price_img">+500 Ft kép esetén</span>
+          </div>
+          <button class="btn-secondary" data-i18n="btn_customize">Testreszabás</button>
         </div>
-        <button class="btn-secondary" data-i18n="btn_customize">Testreszabás</button>
-        </div>
-      </divpicture>
-            <source srcset="keychain.webp" type="image/webp">
-            <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
-          </picture
+      </div>
       <div class="product-card" onclick="selectProduct('keychain'); scrollToConfig()">
         <div class="product-card-photo">
-          <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
+          <picture>
+            <source srcset="keychain.webp" type="image/webp">
+            <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
+          </picture>
         </div>
         <div class="product-card-body">
-        <h3 data-i18n="keychain_name">Fa Kulcstartó</h3>
-        <span class="product-size" data-i18n="keychain_size">5 × 3 cm &nbsp;·&nbsp; max. 14 karakter/sor</span>
-        <p data-i18n="keychain_desc">Bükkfa kulcstartó személyes üzenettel vagy képpel.</p>
-        <div class="price-row">
-          <span class="price">2 490 Ft</span>
-          <span class="price-note" data-i18n="price_img">+500 Ft kép esetén</span>
-        </div>
-        <button class="btn-secondary" data-i18n="btn_customize">Testreszabás</button>
+          <h3 data-i18n="keychain_name">Fa Kulcstartó</h3>
+          <span class="product-size" data-i18n="keychain_size">5 × 3 cm &nbsp;·&nbsp; max. 14 karakter/sor</span>
+          <p data-i18n="keychain_desc">Bükkfa kulcstartó személyes üzenettel vagy képpel.</p>
+          <div class="price-row">
+            <span class="price">2 490 Ft</span>
+            <span class="price-note" data-i18n="price_img">+500 Ft kép esetén</span>
+          </div>
+          <button class="btn-secondary" data-i18n="btn_customize">Testreszabás</button>
         </div>
       </div>
     </div>
@@ -146,26 +145,26 @@
 
     <!-- STEP 1 -->
     <div class="config-step" id="config-step-1">
-      <h3 data-i18n="config_step1_h"
-          <picture>
-            <source srcset="pen.webp" type="image/webp">
-            <img src="pen.png" alt="toll" onerror="this.style.display='none'" />
-          </picture>
-        
-      <div class="product-choice-gri
-          <picture>
-            <source srcset="keychain.webp" type="image/webp">
-            <img src="keychain.png" alt="kulcstartó" onerror="this.style.display='none'" />
-          </picture>
-        
+      <h3 data-i18n="config_step1_h">Melyik terméket szeretnéd?</h3>
+      <div class="product-choice-grid">
         <div class="choice-card" id="choice-pen" onclick="selectProduct('pen')">
-          <div class="choice-photo"><img src="pen.png" alt="toll" onerror="this.style.display='none'" /></div>
+          <div class="choice-photo">
+            <picture>
+              <source srcset="pen.webp" type="image/webp">
+              <img src="pen.png" alt="toll" onerror="this.style.display='none'" />
+            </picture>
+          </div>
           <span data-i18n="pen_name">Bambusz Toll</span>
           <span class="choice-size" data-i18n="pen_size_short">14,5 × 1,1 cm · max. 22 kar./sor</span>
           <span class="choice-price">3 990 Ft</span>
         </div>
         <div class="choice-card" id="choice-keychain" onclick="selectProduct('keychain')">
-          <div class="choice-photo"><img src="keychain.png" alt="kulcstartó" onerror="this.style.display='none'" /></div>
+          <div class="choice-photo">
+            <picture>
+              <source srcset="keychain.webp" type="image/webp">
+              <img src="keychain.png" alt="kulcstartó" onerror="this.style.display='none'" />
+            </picture>
+          </div>
           <span data-i18n="keychain_name">Fa Kulcstartó</span>
           <span class="choice-size" data-i18n="keychain_size_short">5 × 3 cm · max. 14 kar./sor</span>
           <span class="choice-price">2 490 Ft</span>
@@ -221,10 +220,7 @@
           <img id="uploadedPreviewImg" src="" alt="feltöltött kép" style="max-height:100px;border-radius:8px;margin-top:10px;" />
           <button class="btn-ghost" onclick="clearImage()" data-i18n="btn_clear_img">✕ Kép törlése</button>
         </div>
-      </div>picture>
-              <source id="productPhotoWebP" srcset="pen.webp" type="image/webp">
-              <img id="productPhotoImg" src="pen.png" alt="termék" onerror="this.style.opacity='0'" />
-            </picture
+      </div>
 
       <!-- Template tab -->
       <div class="tab-content hidden" id="tab-template-content">
@@ -237,7 +233,10 @@
         <div class="preview-split">
           <!-- Product photo with engraving overlay -->
           <div class="preview-photo-wrap" id="previewPhotoWrap">
-            <img id="productPhotoImg" src="pen.png" alt="termék" onerror="this.style.opacity='0'" />
+            <picture>
+              <source id="productPhotoWebP" srcset="pen.webp" type="image/webp">
+              <img id="productPhotoImg" src="pen.png" alt="termék" onerror="this.style.opacity='0'" />
+            </picture>
             <div class="photo-engrave-overlay pen" id="photoEngraveOverlay">
               <div class="photo-engrave-text" id="photoEngraveLine1"></div>
               <div class="photo-engrave-text" id="photoEngraveLine2"></div>
