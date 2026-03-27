@@ -1,4 +1,29 @@
 const nodemailer = require('nodemailer');
+const https = require('https');
+
+// Airtable helper – saves order record, fails silently if not configured
+async function saveToAirtable(fields) {
+  if (!process.env.AIRTABLE_API_KEY || !process.env.AIRTABLE_BASE_ID) return;
+  const data = JSON.stringify({ records: [{ fields }] });
+  return new Promise((resolve) => {
+    const req = https.request({
+      hostname: 'api.airtable.com',
+      path: `/v0/${process.env.AIRTABLE_BASE_ID}/Orders`,
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.AIRTABLE_API_KEY}`,
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(data),
+      },
+    }, (res) => {
+      res.resume();
+      resolve();
+    });
+    req.on('error', (e) => { console.error('Airtable error:', e.message); resolve(); });
+    req.write(data);
+    req.end();
+  });
+}
 
 exports.handler = async function(event, context) {
   // Only allow POST requests
@@ -62,6 +87,16 @@ exports.handler = async function(event, context) {
     </table>
   `;
 
+  const bankTransferHtml = paymentMethod === 'Banki átutalás' ? `
+    <div style="background:#fffbe6;border:1px solid #c4820e;border-radius:8px;padding:16px;margin-top:16px;">
+      <h3 style="color:#c4820e;margin:0 0 8px;">Banki átutalás adatai</h3>
+      <p style="margin:4px 0;"><strong>Kedvezményezett:</strong> GravírAjándék</p>
+      <p style="margin:4px 0;"><strong>IBAN:</strong> ${process.env.BANK_IBAN || 'HU00 0000 0000 0000 0000 0000 0000'}</p>
+      <p style="margin:4px 0;"><strong>Közlemény:</strong> ${orderNumber}</p>
+      <p style="margin:4px 0;"><strong>Összeg:</strong> ${total}</p>
+      <p style="margin:8px 0 0;font-size:0.9em;color:#666;">Kérjük, az utalás megjegyzés rovatába írja be a rendelésszámot. A rendelést az utalás beérkezése után dolgozzuk fel.</p>
+    </div>` : '';
+
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: process.env.EMAIL_USER,
@@ -77,6 +112,7 @@ exports.handler = async function(event, context) {
       <hr>
       <h3>Rendelés részletei:</h3>
       ${orderDetailsHtml}
+      ${paymentMethod === 'Banki átutalás' ? '<p style="color:#c4820e;font-weight:bold;">⏳ Fizetés státusza: UTALÁSRA VÁR</p>' : ''}
     `,
     attachments: [],
   };
@@ -96,16 +132,33 @@ exports.handler = async function(event, context) {
     html: `
       <h2 style="color:#c4820e;">Köszönjük a megrendelést!</h2>
       <p>Kedves ${customerName}!</p>
-      <p>Megkaptuk a rendelését. Hamarosan felvesszük Önnel a kapcsolatot.</p>
+      <p>Megkaptuk a rendelését. ${paymentMethod === 'Banki átutalás' ? 'Az utalás beérkezése után dolgozzuk fel.' : 'Hamarosan felvesszük Önnel a kapcsolatot.'}</p>
       <hr>
       <h3>Rendelés részletei:</h3>
       ${orderDetailsHtml}
+      ${bankTransferHtml}
       <hr>
       <p style="color:#8a8075;font-size:0.9em;">Üdvözlettel,<br><strong>A GravírAjándék csapata</strong></p>
     `,
   };
 
   try {
+    // Save to Airtable (non-blocking, optional)
+    await saveToAirtable({
+      'OrderNumber': orderNumber,
+      'Status': paymentMethod === 'Banki átutalás' ? 'Fizetésre vár' : 'Feldolgozás alatt',
+      'CustomerName': customerName,
+      'CustomerEmail': customerEmail,
+      'CustomerPhone': customerPhone || '',
+      'CustomerAddress': customerAddress,
+      'Product': product,
+      'Content': content,
+      'Total': total,
+      'PaymentMethod': paymentMethod,
+      'Note': orderNote || '',
+      'CreatedAt': new Date().toISOString(),
+    });
+
     await transporter.sendMail(mailOptions);
     await transporter.sendMail(customerMailOptions);
 
