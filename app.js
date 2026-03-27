@@ -249,9 +249,7 @@ function selectProduct(type) {
   
   // Update photo preview
   const photoImg = document.getElementById('productPhotoImg');
-  const photoWebP = document.getElementById('productPhotoWebP');
   if (photoImg) { photoImg.src = type + '.png'; }
-  if (photoWebP) { photoWebP.srcset = type + '.webp'; }
 
   // Update overlay positioning class (pen=diagonal, keychain=upright)
   const overlay = document.getElementById('photoEngraveOverlay');

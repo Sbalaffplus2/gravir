@@ -47,16 +47,10 @@
   <div class="hero-visual">
     <div class="hero-products">
       <div class="hero-product-img">
-        <picture>
-          <source srcset="pen.webp" type="image/webp">
-          <img src="pen.png" alt="Bambusz toll" onerror="this.parentElement.style.display='none'" />
-        </picture>
+        <img src="pen.png" alt="Bambusz toll" onerror="this.closest('.hero-product-img').style.display='none'" />
       </div>
       <div class="hero-product-img">
-        <picture>
-          <source srcset="keychain.webp" type="image/webp">
-          <img src="keychain.png" alt="Fa kulcstartó" onerror="this.parentElement.style.display='none'" />
-        </picture>
+        <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.hero-product-img').style.display='none'" />
       </div>
     </div>
   </div>
@@ -71,10 +65,7 @@
     <div class="products-grid">
       <div class="product-card" onclick="selectProduct('pen'); scrollToConfig()">
         <div class="product-card-photo">
-          <picture>
-            <source srcset="pen.webp" type="image/webp">
-            <img src="pen.png" alt="Bambusz toll" onerror="this.closest('.product-card-photo').style.display='none'" />
-          </picture>
+          <img src="pen.png" alt="Bambusz toll" onerror="this.closest('.product-card-photo').style.display='none'" />
         </div>
         <div class="product-card-body">
           <h3 data-i18n="pen_name">Bambusz Toll</h3>
@@ -89,10 +80,7 @@
       </div>
       <div class="product-card" onclick="selectProduct('keychain'); scrollToConfig()">
         <div class="product-card-photo">
-          <picture>
-            <source srcset="keychain.webp" type="image/webp">
-            <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
-          </picture>
+          <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
         </div>
         <div class="product-card-body">
           <h3 data-i18n="keychain_name">Fa Kulcstartó</h3>
@@ -149,10 +137,7 @@
       <div class="product-choice-grid">
         <div class="choice-card" id="choice-pen" onclick="selectProduct('pen')">
           <div class="choice-photo">
-            <picture>
-              <source srcset="pen.webp" type="image/webp">
-              <img src="pen.png" alt="toll" onerror="this.style.display='none'" />
-            </picture>
+            <img src="pen.png" alt="toll" onerror="this.closest('.choice-photo').style.display='none'" />
           </div>
           <span data-i18n="pen_name">Bambusz Toll</span>
           <span class="choice-size" data-i18n="pen_size_short">14,5 × 1,1 cm · max. 22 kar./sor</span>
@@ -160,10 +145,7 @@
         </div>
         <div class="choice-card" id="choice-keychain" onclick="selectProduct('keychain')">
           <div class="choice-photo">
-            <picture>
-              <source srcset="keychain.webp" type="image/webp">
-              <img src="keychain.png" alt="kulcstartó" onerror="this.style.display='none'" />
-            </picture>
+            <img src="keychain.png" alt="kulcstartó" onerror="this.closest('.choice-photo').style.display='none'" />
           </div>
           <span data-i18n="keychain_name">Fa Kulcstartó</span>
           <span class="choice-size" data-i18n="keychain_size_short">5 × 3 cm · max. 14 kar./sor</span>
@@ -233,10 +215,7 @@
         <div class="preview-split">
           <!-- Product photo with engraving overlay -->
           <div class="preview-photo-wrap" id="previewPhotoWrap">
-            <picture>
-              <source id="productPhotoWebP" srcset="pen.webp" type="image/webp">
-              <img id="productPhotoImg" src="pen.png" alt="termék" onerror="this.style.opacity='0'" />
-            </picture>
+            <img id="productPhotoImg" src="pen.png" alt="termék" onerror="this.style.opacity='0'" />
             <div class="photo-engrave-overlay pen" id="photoEngraveOverlay">
               <div class="photo-engrave-text" id="photoEngraveLine1"></div>
               <div class="photo-engrave-text" id="photoEngraveLine2"></div>
