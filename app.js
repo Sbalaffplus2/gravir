@@ -816,7 +816,11 @@ async function submitOrder(event) {
       }),
     });
 
-    if (!response.ok) throw new Error('Server error: ' + response.status);
+    if (!response.ok) {
+      let errMsg = 'Server error: ' + response.status;
+      try { const data = await response.json(); errMsg = data.message || errMsg; } catch (_) {}
+      throw new Error(errMsg);
+    }
 
     document.getElementById('successModal').classList.remove('hidden');
     document.getElementById('orderForm').reset();
@@ -826,7 +830,7 @@ async function submitOrder(event) {
     goToStep(1);
   } catch (err) {
     console.error('Order submit error:', err);
-    alert(t('err_sending'));
+    alert(t('err_sending') + '\n\n' + err.message);
   } finally {
     btn.disabled = false;
     btn.textContent = t('btn_order');

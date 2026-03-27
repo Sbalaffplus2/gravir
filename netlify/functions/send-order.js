@@ -6,6 +6,22 @@ exports.handler = async function(event, context) {
     return { statusCode: 405, body: 'Method Not Allowed' };
   }
 
+  // Check environment variables are configured
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+    console.error('Missing EMAIL_USER or EMAIL_PASS environment variables');
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ message: 'Email service not configured. Set EMAIL_USER and EMAIL_PASS in Netlify.' }),
+    };
+  }
+
+  let body;
+  try {
+    body = JSON.parse(event.body);
+  } catch (e) {
+    return { statusCode: 400, body: JSON.stringify({ message: 'Invalid request body.' }) };
+  }
+
   const {
     customerName,
     customerEmail,
@@ -18,7 +34,7 @@ exports.handler = async function(event, context) {
     content,
     total,
     uploadedImage,
-  } = JSON.parse(event.body);
+  } = body;
 
   // --- Server-side validation ---
   if (!customerName || !customerEmail || !customerAddress) {
@@ -101,7 +117,7 @@ exports.handler = async function(event, context) {
     console.error('Error sending email:', error);
     return {
       statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to send order email.' }),
+      body: JSON.stringify({ message: 'Failed to send order email: ' + error.message }),
     };
   }
 };
