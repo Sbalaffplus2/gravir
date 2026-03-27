@@ -3,9 +3,10 @@
    =========================================== */
 
 // ── EmailJS ──────────────────────────────────
-const EMAILJS_SERVICE_ID  = 'service_k6jumcf';
-const EMAILJS_TEMPLATE_ID = 'template_n1viil8';
-const EMAILJS_PUBLIC_KEY  = '8XTzOjDofiyONfv2X';
+// DEPRECATED in favor of server.js backend
+// const EMAILJS_SERVICE_ID  = 'service_k6jumcf';
+// const EMAILJS_TEMPLATE_ID = 'template_n1viil8';
+// const EMAILJS_PUBLIC_KEY  = '8XTzOjDofiyONfv2X';
 
 // ── Character limits based on real dimensions ─
 // Pen: 14.5cm × 1.1cm → engravable ~8.5cm × 0.8cm → max 22 chars/line (at ~3.8mm/char)
@@ -67,6 +68,7 @@ const TRANSLATIONS = {
     contact_title: "Kapcsolat", contact_email_label: "E-mail",
     contact_response: "Válaszidő", contact_response_val: "1 munkanapon belül",
     contact_delivery: "Szállítás", contact_delivery_val: "3–5 munkanap",
+    footer_brand: "GravírAjándék – Egyedi, szívvel készült ajándékok.",
     footer_rights: "Minden jog fenntartva.", footer_contact: "Kapcsolat",
     order_product: "Termék", order_content: "Tartalom", order_price: "Alapár",
     order_surcharge: "Képfelár", order_total: "Összesen",
@@ -127,7 +129,8 @@ const TRANSLATIONS = {
     terms_title: "Terms and Conditions",
     contact_title: "Contact", contact_email_label: "Email",
     contact_response: "Response time", contact_response_val: "Within 1 business day",
-    contact_delivery: "Shipping", contact_delivery_val: "3–5 business days",
+    contactbrand: "GravírAjándék – Unique gifts made with heart.",
+    footer__delivery: "Shipping", contact_delivery_val: "3–5 business days",
     footer_rights: "All rights reserved.", footer_contact: "Contact",
     order_product: "Product", order_content: "Content", order_price: "Base price",
     order_surcharge: "Image surcharge", order_total: "Total",
@@ -229,7 +232,11 @@ function selectTemplate(id) {
   const l2 = document.getElementById('text-line2');
   if (l1) l1.value = tpl.line1;
   if (l2) l2.value = tpl.line2;
-  renderTemplates();
+  
+  document.querySelectorAll('.template-card').forEach(el => el.classList.remove('selected'));
+  const card = document.querySelector(`.template-card[onclick="selectTemplate('${id}')"]`);
+  if (card) card.classList.add('selected');
+
   updatePreview();
   updateCharCounters();
 }
@@ -237,11 +244,15 @@ function selectTemplate(id) {
 // ── NAVIGATION ───────────────────────────────
 function selectProduct(type) {
   STATE.product = type;
-  document.getElementById('choice-pen').classList.toggle('selected', type === 'pen');
-  document.getElementById('choice-keychain').classList.toggle('selected', type === 'keychain');
+  document.querySelectorAll('.choice-card').forEach(el => el.classList.remove('selected'));
+  document.getElementById('choice-' + type).classList.add('selected');
+  
   // Update photo preview
   const photoImg = document.getElementById('productPhotoImg');
+  const photoWebP = document.getElementById('productPhotoWebP');
   if (photoImg) { photoImg.src = type + '.png'; }
+  if (photoWebP) { photoWebP.srcset = type + '.webp'; }
+
   // Update overlay positioning class (pen=diagonal, keychain=upright)
   const overlay = document.getElementById('photoEngraveOverlay');
   if (overlay) { overlay.className = 'photo-engrave-overlay ' + type; }
@@ -318,18 +329,70 @@ function toggleMenu() {
 }
 
 // ── IMAGE UPLOAD ──────────────────────────────
-function handleImageUpload(event) {
+async function handleImageUpload(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (file.size > 5 * 1024 * 1024) { alert('A fájl mérete max. 5 MB lehet!'); return; }
-  const reader = new FileReader();
-  reader.onload = e => {
-    STATE.uploadedImage = e.target.result;
-    document.getElementById('uploadedPreviewImg').src = STATE.uploadedImage;
-    document.getElementById('uploadedPreviewWrap').classList.remove('hidden');
-    updatePreview();
+
+  const pica = window.pica();
+  const MAX_WIDTH = 1024;
+  const MAX_HEIGHT = 1024;
+
+  // Show a temporary loading state
+  const uploadArea = document.getElementById('uploadArea');
+  uploadArea.innerHTML = '<p>Kép feldolgozása...</p>';
+
+  const offScreenImg = new Image();
+  offScreenImg.src = URL.createObjectURL(file);
+
+  offScreenImg.onload = async () => {
+    const aspectRatio = offScreenImg.width / offScreenImg.height;
+    let targetWidth = offScreenImg.width;
+    let targetHeight = offScreenImg.height;
+
+    if (targetWidth > MAX_WIDTH) {
+      targetWidth = MAX_WIDTH;
+      targetHeight = targetWidth / aspectRatio;
+    }
+    if (targetHeight > MAX_HEIGHT) {
+      targetHeight = MAX_HEIGHT;
+      targetWidth = targetHeight * aspectRatio;
+    }
+
+    const offScreenCanvas = document.createElement('canvas');
+    offScreenCanvas.width = targetWidth;
+    offScreenCanvas.height = targetHeight;
+
+    try {
+      const result = await pica.resize(offScreenImg, offScreenCanvas, {
+        unsharpAmount: 80,
+        unsharpRadius: 0.6,
+        unsharpThreshold: 2,
+      });
+
+      const resizedDataUrl = result.toDataURL('image/jpeg', 0.9); // High quality JPEG
+      STATE.uploadedImage = resizedDataUrl;
+
+      document.getElementById('uploadedPreviewImg').src = STATE.uploadedImage;
+      document.getElementById('uploadedPreviewWrap').classList.remove('hidden');
+      updatePreview();
+
+    } catch (error) {
+      console.error('Image resize error:', error);
+      alert('Hiba a kép átméretezése közben. Próbáljon meg egy másik képet.');
+      clearImage(); // Reset UI
+    } finally {
+       // Restore upload area content
+      uploadArea.innerHTML = `
+        <div class="upload-icon">📁</div>
+        <p data-i18n="upload_hint">${t('upload_hint')}</p>
+        <p class="upload-note" data-i18n="upload_note">${t('upload_note')}</p>
+      `;
+    }
   };
-  reader.readAsDataURL(file);
+  offScreenImg.onerror = () => {
+      alert('Hiba a kép betöltésekor.');
+      clearImage();
+  };
 }
 
 function clearImage() {

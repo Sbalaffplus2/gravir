@@ -47,8 +47,18 @@
   </div>
   <div class="hero-visual">
     <div class="hero-products">
-      <div class="hero-product-img"><img src="pen.png" alt="Bambusz toll" onerror="this.parentElement.style.display='none'" /></div>
-      <div class="hero-product-img"><img src="keychain.png" alt="Fa kulcstartó" onerror="this.parentElement.style.display='none'" /></div>
+      <div class="hero-product-img">
+        <picture>
+          <source srcset="pen.webp" type="image/webp">
+          <img src="pen.png" alt="Bambusz toll" onerror="this.parentElement.style.display='none'" />
+        </picture>
+      </div>
+      <div class="hero-product-img">
+        <picture>
+          <source srcset="keychain.webp" type="image/webp">
+          <img src="keychain.png" alt="Fa kulcstartó" onerror="this.parentElement.style.display='none'" />
+        </picture>
+      </div>
     </div>
   </div>
 </div>
@@ -62,7 +72,10 @@
     <div class="products-grid">
       <div class="product-card" onclick="selectProduct('pen'); scrollToConfig()">
         <div class="product-card-photo">
-          <img src="pen.png" alt="Bambusz toll" onerror="this.closest('.product-card-photo').style.display='none'" />
+          <picture>
+            <source srcset="pen.webp" type="image/webp">
+            <img src="pen.png" alt="Bambusz toll" onerror="this.closest('.product-card-photo').style.display='none'" />
+          </picture>
         </div>
         <div class="product-card-body">
         <h3 data-i18n="pen_name">Bambusz Toll</h3>
@@ -74,7 +87,10 @@
         </div>
         <button class="btn-secondary" data-i18n="btn_customize">Testreszabás</button>
         </div>
-      </div>
+      </divpicture>
+            <source srcset="keychain.webp" type="image/webp">
+            <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
+          </picture
       <div class="product-card" onclick="selectProduct('keychain'); scrollToConfig()">
         <div class="product-card-photo">
           <img src="keychain.png" alt="Fa kulcstartó" onerror="this.closest('.product-card-photo').style.display='none'" />
@@ -99,10 +115,10 @@
   <div class="container">
     <h2 data-i18n="how_title">Hogyan működik?</h2>
     <div class="steps-grid">
-      <div class="step"><div class="step-num">1</div><h4 data-i18n="step1_title">Válassz terméket</h4><p data-i18n="step1_desc">Bambusz toll vagy bükkfa kulcstartó.</p></div>
-      <div class="step"><div class="step-num">2</div><h4 data-i18n="step2_title">Add meg a tartalmat</h4><p data-i18n="step2_desc">Szöveg, kép vagy sablon alapján.</p></div>
-      <div class="step"><div class="step-num">3</div><h4 data-i18n="step3_title">Előnézet & megrendelés</h4><p data-i18n="step3_desc">Valós idejű előnézet, majd biztonságos fizetés.</p></div>
-      <div class="step"><div class="step-num">4</div><h4 data-i18n="step4_title">Kézbesítés</h4><p data-i18n="step4_desc">3–5 munkanapon belül postázzuk.</p></div>
+      <div class="step"><div class="step-icon">🛍️</div><h4 data-i18n="step1_title">Válassz terméket</h4><p data-i18n="step1_desc">Bambusz toll vagy bükkfa kulcstartó.</p></div>
+      <div class="step"><div class="step-icon">🎨</div><h4 data-i18n="step2_title">Add meg a tartalmat</h4><p data-i18n="step2_desc">Szöveg, kép vagy sablon alapján.</p></div>
+      <div class="step"><div class="step-icon">🖼️</div><h4 data-i18n="step3_title">Előnézet & megrendelés</h4><p data-i18n="step3_desc">Valós idejű előnézet, majd biztonságos fizetés.</p></div>
+      <div class="step"><div class="step-icon">🚚</div><h4 data-i18n="step4_title">Kézbesítés</h4><p data-i18n="step4_desc">3–5 munkanapon belül postázzuk.</p></div>
     </div>
   </div>
 </section>
@@ -130,8 +146,18 @@
 
     <!-- STEP 1 -->
     <div class="config-step" id="config-step-1">
-      <h3 data-i18n="config_step1_h">Melyik terméket szeretnéd?</h3>
-      <div class="product-choice-grid">
+      <h3 data-i18n="config_step1_h"
+          <picture>
+            <source srcset="pen.webp" type="image/webp">
+            <img src="pen.png" alt="toll" onerror="this.style.display='none'" />
+          </picture>
+        
+      <div class="product-choice-gri
+          <picture>
+            <source srcset="keychain.webp" type="image/webp">
+            <img src="keychain.png" alt="kulcstartó" onerror="this.style.display='none'" />
+          </picture>
+        
         <div class="choice-card" id="choice-pen" onclick="selectProduct('pen')">
           <div class="choice-photo"><img src="pen.png" alt="toll" onerror="this.style.display='none'" /></div>
           <span data-i18n="pen_name">Bambusz Toll</span>
@@ -195,7 +221,10 @@
           <img id="uploadedPreviewImg" src="" alt="feltöltött kép" style="max-height:100px;border-radius:8px;margin-top:10px;" />
           <button class="btn-ghost" onclick="clearImage()" data-i18n="btn_clear_img">✕ Kép törlése</button>
         </div>
-      </div>
+      </div>picture>
+              <source id="productPhotoWebP" srcset="pen.webp" type="image/webp">
+              <img id="productPhotoImg" src="pen.png" alt="termék" onerror="this.style.opacity='0'" />
+            </picture
 
       <!-- Template tab -->
       <div class="tab-content hidden" id="tab-template-content">
@@ -267,12 +296,12 @@
           </label>
           <label class="pay-option">
             <input type="radio" name="payment" value="simplepay" onchange="showPaymentInfo()" />
-            <div class="pay-icon">💳</div>
+            <div class="pay-icon"><img src="https://www.simplepay.hu/wp-content/uploads/2022/03/simplepay_logo_rgb-1.png" alt="SimplePay" class="payment-logo"></div>
             <div><strong>SimplePay</strong><small data-i18n="pay_simplepay_note">Bankkártyás fizetés</small></div>
           </label>
           <label class="pay-option">
             <input type="radio" name="payment" value="barion" onchange="showPaymentInfo()" />
-            <div class="pay-icon">📱</div>
+            <div class="pay-icon"><img src="https://www.barion.com/static/barion-logo-128x128.png" alt="Barion" class="payment-logo"></div>
             <div><strong>Barion</strong><small data-i18n="pay_barion_note">Bankkártya / Apple Pay / Google Pay</small></div>
           </label>
         </div>
@@ -332,11 +361,13 @@
 
 <footer class="footer">
   <div class="container">
+    <p class="footer-brand" data-i18n="footer_brand">GravírAjándék – Egyedi, szívvel készült ajándékok.</p>
     <p>© 2026 GravírAjándék. <span data-i18n="footer_rights">Minden jog fenntartva.</span></p>
     <p><a href="#" onclick="showTerms(); return false;" data-i18n="terms_link">ÁSZF</a> · <a href="mailto:sbalaffplus2@gmail.com" data-i18n="footer_contact">Kapcsolat</a></p>
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/pica/dist/pica.min.js"></script>
 <script src="app.js"></script>
 </body>
 </html>
