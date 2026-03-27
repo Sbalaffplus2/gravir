@@ -2,11 +2,14 @@ const nodemailer = require('nodemailer');
 
 // Google Sheets helper via Apps Script Web App – fails silently if not configured
 async function saveToGoogleSheets(row) {
-  if (!process.env.GOOGLE_SHEETS_WEBHOOK_URL) return;
+  if (!process.env.GOOGLE_SHEETS_WEBHOOK_URL || !process.env.GOOGLE_SHEETS_SECRET) return;
   try {
     await fetch(process.env.GOOGLE_SHEETS_WEBHOOK_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Webhook-Secret': process.env.GOOGLE_SHEETS_SECRET,
+      },
       body: JSON.stringify(row),
     });
   } catch (e) {
